@@ -21,8 +21,8 @@ $media = "\\Contoso-HV\VmBuild\TestTouch.iso"
 
 ## MDT Locations
 $mdt = "C:\Program Files\Microsoft Deployment Toolkit\Bin\microsoftdeploymenttoolkit.psd1"
-$dplpath = "\\Contoso-svr-wds01\Deployment$"
-$capturepath = "\\Contoso-svr-wds01\TestBuild$\Captures"
+$dplpath = "\\Contoso-svr-MDT\Deployment$"
+$capturepath = "\\Contoso-svr-MDT\TestBuild$\Captures"
 
 ## Import Hyper-V 2012r2 Modules unless you are running Hyper-V 2016.
 Import-Module Hyper-V -RequiredVersion 1.1
