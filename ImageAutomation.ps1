@@ -24,10 +24,10 @@ $mdt = "C:\Program Files\Microsoft Deployment Toolkit\Bin\microsoftdeploymenttoo
 $dplpath = "\\Contoso-svr-MDT\Deployment$"
 $capturepath = "\\Contoso-svr-MDT\TestBuild$\Captures"
 
-## Import Hyper-V 2012r2 Modules unless you are running Hyper-V 2016.
+## Import Hyper-V 2012r2 Modules. Disable if on 2016
 Import-Module Hyper-V -RequiredVersion 1.1
-## Import Hyper-V 2016 Modules
-#Import-Module Hyper-V -RequiredVersion 2
+#Import-Module Hyper-V -RequiredVersion 2 # This is the module for Hyper-V 2016
+Import-Module “C:\Program Files\Microsoft Deployment Toolkit\bin\MicrosoftDeploymentToolkit.psd1”
 
 ForEach ($id in $tasks) {
  
@@ -56,21 +56,21 @@ Remove-VM $vmname -ComputerName $hvhost -Force
 Remove-Item $VHDRemote\$vmname.vhdx
 
 ## Reset MDT Custom Settings
-Remove-Item $csini\CustomSettings.ini
-Move-Item $csini\CustomSettings-backup.ini $csini\CustomSettings.ini
+Remove-Item $customini\CustomSettings.ini -Force
+Move-Item $customini\CustomSettings-backup.ini $customini\CustomSettings.ini
 Start-Sleep -s 5
 }
 
 ## Connect to the MDT Production drive 
-New-PsDrive -Name "DS002" -PSProvider FileSystem -Root $dplpath
+New-PsDrive -Name "DS002" -PSProvider MDTProvider -Root $dplpath
 
 ## Find the files.
 $wims = Get-ChildItem $capturepath\*.wim
 
 ## Import the reference images into Production
 ForEach ($file in $wims) {
-    Import-MDTOperatingSystem -Path "DS002:\Operating Systems" -SourceFile $file -DestinationFolder $file.name
+    Import-MDTOperatingSystem -Path "DS002:\Operating Systems" -SourceFile $file -DestinationFolder $file.name -Move
 }
 
-## Remove the captured images
-Remove-Item $capturepath\*.wim
+## Cleanup Stage
+Remove-PSDrive -Name "DS002"
