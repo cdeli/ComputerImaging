@@ -20,14 +20,13 @@ $VHDRemote = "\\Contoso-HV\VmBuild"
 $media = "\\Contoso-HV\VmBuild\TestTouch.iso"
 
 ## MDT Locations
-$mdt = "C:\Program Files\Microsoft Deployment Toolkit\Bin\microsoftdeploymenttoolkit.psd1"
 $dplpath = "\\Contoso-svr-MDT\Deployment$"
 $capturepath = "\\Contoso-svr-MDT\TestBuild$\Captures"
 
 ## Import Hyper-V 2012r2 Modules. Disable if on 2016
 Import-Module Hyper-V -RequiredVersion 1.1
 #Import-Module Hyper-V -RequiredVersion 2 # This is the module for Hyper-V 2016
-Import-Module “C:\Program Files\Microsoft Deployment Toolkit\bin\MicrosoftDeploymentToolkit.psd1”
+Import-Module "C:\Program Files\Microsoft Deployment Toolkit\bin\MicrosoftDeploymentToolkit.psd1"
 
 ForEach ($id in $tasks) {
  
