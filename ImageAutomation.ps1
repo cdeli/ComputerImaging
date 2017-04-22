@@ -28,6 +28,8 @@ Import-Module Hyper-V -RequiredVersion 1.1
 #Import-Module Hyper-V -RequiredVersion 2 # This is the module for Hyper-V 2016
 Import-Module "C:\Program Files\Microsoft Deployment Toolkit\bin\MicrosoftDeploymentToolkit.psd1"
 
+# Actual script running
+
 ForEach ($id in $tasks) {
  
 ## Configure the CustomSettings.ini to skip the task sequence and just run.
