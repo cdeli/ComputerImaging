@@ -2,7 +2,7 @@
 # Author: Corey Deli                    #
 # Page: https://coreydeli.com           #
 # Date: 4/4/2017                        #
-# Version: 0.1                          #
+# Version: 1.0                          #
 #########################################
 
 # Variables
