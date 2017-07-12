@@ -2,22 +2,84 @@
 # Author: Corey Deli                    #
 # Page: https://coreydeli.com           #
 # Date: 4/4/2017                        #
-# Version: 1.0                          #
+# Version: 1.1                          #
 #########################################
+
+# Parameters
+
+Param(
+    [parameter(Mandatory=$true)]
+    [alias("build")]
+    $customini,
+    
+    [parameter(Mandatory=$true)] 
+    [alias("deploy")] 
+    $dplpath, 
+    
+    [parameter(Mandatory=$true)] 
+    [alias("ts")] 
+    $tasks, 
+    
+    [parameter(Mandatory=$true)] 
+    [alias("hv")] 
+    $hvhost, 
+    
+    [parameter(Mandatory=$true)] 
+    [alias("vhd")] 
+    $VHDLocal, 
+    
+    [parameter(Mandatory=$true)] 
+    [alias("boot")] 
+    $media, 
+    
+    #[parameter(Mandatory=$true)] 
+    #[alias("vnic")] 
+    #$vmnic, 
+    
+    [alias("l")] 
+    $logpath, 
+    
+    [alias("sendto")] 
+    $to, 
+    
+    [alias("from")] 
+    $from, 
+    
+    [alias("mail")] 
+    $server, 
+    
+    [switch]$compat, 
+    
+    [switch]$remote
+)
 
 # Variables
 
+#Log File
+
+$logfile = ("image-factory{0:yyyy-MM-dd-HH-mm-ss}.log" -f (Get-Date))
+$log = "$logpath\$logfile"
+
+$subject = "Image Factory Log File"
+
+
+
+## Start Logging
+if ($logpath) {
+    Start-transcript $log
+}
+
 ## Location of the "CustomSettings.ini"
-$customini = "\\Contoso-svr-MDT\TestBuild$\Control\"
+#$customini = "\\Contoso-svr-MDT\TestBuild$\Control\"
 
 ## Possible tasks sequences. Use Task ID's
-$tasks = "REFW10-X64-001"#,"NEXT","NEXT" < ADD ADDITIONAL AND REMOVE POUND SIGN FOR MULTIPLE ID's.
+#$tasks = "REFW10-X64-001"#,"NEXT","NEXT" < ADD ADDITIONAL AND REMOVE POUND SIGN FOR MULTIPLE ID's.
 
 ## Hyper-V Settings
-$hvhost = "Contoso-HV.Contoso.pri"
-$VHDLocal = "\\Contoso-HV\VmBuild"
-$VHDRemote = "\\Contoso-HV\VmBuild"
-$media = "\\Contoso-HV\VmBuild\TestTouch.iso"
+#$hvhost = "Contoso-HV.Contoso.pri"
+#$VHDLocal = "\\Contoso-HV\VmBuild"
+#$VHDRemote = "\\Contoso-HV\VmBuild"
+#$media = "\\Contoso-HV\VmBuild\TestTouch.iso"
 
 ## MDT Locations
 $dplpath = "\\Contoso-svr-MDT\Deployment$"
@@ -63,7 +125,7 @@ Start-Sleep -s 5
 }
 
 ## Connect to the MDT Production drive 
-New-PsDrive -Name "DS002" -PSProvider MDTProvider -Root $dplpath
+New-PsDrive -Name "DS002" -PSProvider MDTProvider -Root $dplpath -verbos
 
 ## Find the files.
 $wims = Get-ChildItem $capturepath\*.wim
@@ -75,3 +137,14 @@ ForEach ($file in $wims) {
 
 ## Cleanup Stage
 Remove-PSDrive -Name "DS002"
+
+## Stop logging
+if ($logpath) {
+    stop-transcript
+}
+
+# Email Report
+if ($server) {
+    $body = Get-Content -Path $log | out-string 
+    send-mailmessages -to $to -from $from -subject $subject -Body $body -smtpserver $server
+}
