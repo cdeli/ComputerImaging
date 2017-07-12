@@ -10,7 +10,7 @@
 
 ### Version 1.0
 
-Initial Commit. All code baked into image.
+-- Initial Commit. All code baked into image.
 
 ## Special Consideration
 
