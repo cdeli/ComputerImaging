@@ -1,5 +1,16 @@
 # OS Image Automation
 
+## Changes
+
+### Version 1.1
+
+-- Adding Parameters for less baked in commands
+-- Adding switches for flexibility
+
+### Version 1.0
+
+Initial Commit. All code baked into image.
+
 ## Special Consideration
 
 Ensure that the variables of: 
