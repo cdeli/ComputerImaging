@@ -62,8 +62,6 @@ $log = "$logpath\$logfile"
 
 $subject = "Image Factory Log File"
 
-
-
 ## Start Logging
 if ($logpath) {
     Start-transcript $log
@@ -100,13 +98,13 @@ Start-Sleep -s 5
 Add-Content $customini\CustomSettings.ini "TaskSequenceID=$id"
 Add-Content $customini\CustomSettings.ini "SkipTaskSequence=YES"
 Add-Content $customini\CustomSettings.ini "SkipComputerName=YES"
-(Get-Content $customini\CustomSettings.ini).replace('OSDComputerName=%OSDPrefix%-%TaskSequenceID%',';OSDComputerName=%OSDPrefix%-%TaskSequenceID%') | 
+(Get-Content $customini\CustomSettings.ini).replace('OSDComputerName=%OSDPrefix%-%TaskSequenceID%',';OSDComputerName=%OSDPrefix%-%TaskSequenceID%') | `
     Set-Content $customini\CustomSettings.ini
 
 ## Build the VM to create the image on.
 $vmname = ("build-{0:yyyy-MM-dd-HH-mm}" -f (get-date))
 New-VM -Name $vmname -MemoryStartupBytes 4096MB -BootDevice CD -Generation 1 -NewVHDPath $VHDLocal\$vmname.vhdx -NewVHDSizeBytes 130048MB `
- -SwitchName "Microsoft Network Adapter Multiplexor Driver - Virtual Switch" -ComputerName $hvhost
+    -SwitchName "Microsoft Network Adapter Multiplexor Driver - Virtual Switch" -ComputerName $hvhost
 Set-VM $vmname -ProcessorCount 2 -StaticMemory -ComputerName $hvhost
 Set-VMDvdDrive -VMName $vmname -ControllerNumber 1 -ControllerLocation 0 -Path $media -ComputerName $hvhost
 Start-VM $vmname -ComputerName $hvhost
