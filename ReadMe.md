@@ -31,3 +31,11 @@ This is best run on a schedule.
 I am still searching for a way to add the image to a new task sequence once the image is finished.
 
 Currently working on having the XML file be built with PowerShell rather than just adding lines to a backup.
+
+## Tip o' the hat!
+
+Thank you to Mike Galvin (https://gal.vin) for the initial work on this script. I do not deserve credit for the work behind it. Any and all modifications are my own. The initial script is not.
+
+## Legal
+
+I take no responsibility for any and all negative outcomes of this script. Should issues be caused on a production system, I warn that you test this thoroghly before using it for a production enviroment.
