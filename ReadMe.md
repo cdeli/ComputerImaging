@@ -2,6 +2,14 @@
 
 ## Changes
 
+### Version 1.2
+
+-- Additional paramters
+
+-- Comments to make parameters more clear
+
+-- General syntax cleanup
+
 ### Version 1.1
 
 -- Adding Parameters for less baked in commands
