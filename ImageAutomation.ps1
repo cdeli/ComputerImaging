@@ -88,7 +88,7 @@ Start-Sleep -s 5
 Add-Content $customini\CustomSettings.ini "TaskSequenceID=$id"
 Add-Content $customini\CustomSettings.ini "SkipTaskSequence=YES"
 Add-Content $customini\CustomSettings.ini "SkipComputerName=YES"
-(Get-Content $customini\CustomSettings.ini).replace('OSDComputerName=%OSDPrefix%-%TaskSequenceID%',';OSDComputerName=%OSDPrefix%-%TaskSequenceID%') | 
+(Get-Content $customini\CustomSettings.ini).replace('OSDComputerName=%OSDPrefix%-%TaskSequenceID%',';OSDComputerName=%OSDPrefix%-%TaskSequenceID%') | `
     Set-Content $customini\CustomSettings.ini
 
 ## Build the VM to create the image on.
