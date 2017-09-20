@@ -1,3 +1,5 @@
+[![Stories in Ready](https://badge.waffle.io/cdeli/ComputerImaging.svg?label=ready&title=Ready)](http://waffle.io/cdeli/ComputerImaging)
+
 # OS Image Automation
 
 Please be sure that you manually add the newly captured image to the task sequence once this completes.
