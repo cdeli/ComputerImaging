@@ -1,4 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/cdeli/ComputerImaging.svg?label=ready&title=Ready)](http://waffle.io/cdeli/ComputerImaging)
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/cdeli/ComputerImaging.svg?columns=all)](https://waffle.io/cdeli/ComputerImaging)
 
 # OS Image Automation
 
